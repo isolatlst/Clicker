@@ -1,5 +1,4 @@
 ﻿using Codebase.Enemy;
-using Codebase.Generics;
 using Codebase.Input;
 using Codebase.Services;
 using UnityEngine;
@@ -9,24 +8,40 @@ namespace Codebase.Installers
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
+        [SerializeField] private EnemyFacade _enemyTemplate;
+
         public override void InstallBindings()
         {
             BindInput();
             BindEnemyDataService();
+            BindEnemySpawnHandler();
         }
-        
+
         private void BindInput()
         {
             if (Application.isMobilePlatform)
-                Container.Bind<IInputHandler>().To<MobileInputHandler>().AsSingle();
+                Container.BindInterfacesAndSelfTo<MobileInputHandler>().AsSingle();
             else
-                Container.Bind<IInputHandler>().To<PCInputHandler>().AsSingle();
+                Container.BindInterfacesAndSelfTo<PCInputHandler>().AsSingle();
         }
 
         private void BindEnemyDataService()
         {
-            Container.Bind<EnemyDataService>().AsSingle();
-            Container.Bind<EnemyFactory>().AsSingle();
+            Container
+                .Bind<EnemyDataService>()
+                .AsSingle();
+        }
+
+        private void BindEnemySpawnHandler()
+        {
+            Container
+                .Bind<EnemyFacade>()
+                .FromComponentInNewPrefab(_enemyTemplate)
+                .AsCached();
+
+            Container
+                .Bind<EnemyFactory>()
+                .AsSingle();
         }
     }
 }

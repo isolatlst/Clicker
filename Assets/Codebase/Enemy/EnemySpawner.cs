@@ -1,37 +1,36 @@
-﻿using System;
-using Codebase.Generics;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Codebase.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private HealthBarView _commonEnemyHealthBar; //fixme - тупое решение прокидывать инстантиэйтнутый бар
-        public event Action<Enemy> EnemySpawned;
         private EnemyFactory _enemyFactory;
-
+        public EnemyFacade CurrentEnemy { get; private set; }
+        
         [Inject]
-        public void Construct(EnemyFactory enemyFactory)
+        public void Construct (EnemyFactory enemyFactory)
         {
             _enemyFactory = enemyFactory;
         }
 
-        private void Start() //удалить после добавления системы сохранений
+        private void Start()
         {
             SpawnEnemy();
         }
-
+        
         private void SpawnEnemy()
         {
-            var enemy = _enemyFactory.CreateEnemy(transform, _commonEnemyHealthBar);
-            enemy.Death += () => HandleDeath(enemy);
-            EnemySpawned?.Invoke(enemy);
+            CurrentEnemy = _enemyFactory.CreateEnemy();
+            CurrentEnemy.transform.SetParent(transform, false);
+            
+            CurrentEnemy.Health.Death += OnEnemyDeath;
         }
-
-        private void HandleDeath(Enemy enemy)
+        
+        private void OnEnemyDeath()
         {
-            Destroy(enemy.gameObject);
+            CurrentEnemy.Health.Death -= OnEnemyDeath;
+            Destroy(CurrentEnemy.gameObject);
             SpawnEnemy();
         }
     }

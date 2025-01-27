@@ -1,33 +1,26 @@
-﻿using System.Linq;
-using Codebase.ScriptableObjects;
+﻿using System.Collections.Generic;
+using Codebase.Data;
 using UnityEngine;
 
 namespace Codebase.Services
 {
     public class EnemyDataService
     {
-        private EnemyInfo[] _enemiesInfo;
+        private List<EnemyConfig> _enemiesData;
         private int _index = 0;
 
         public EnemyDataService()
         {
-            _enemiesInfo = Resources.LoadAll<EnemyInfo>("Enemy").OrderBy(data  => data.Id).ToArray();
+            EnemyData data = Resources.Load<EnemyData>("Enemies/Enemy Data");
+            _enemiesData = data.EnemyConfigs;
         }
 
-        public EnemyInfo GetRandomEnemyInfo()
+        public EnemyConfig GetEnemyInfo()
         {
-            var rIndex = Random.Range(0, _enemiesInfo.Length);
-            return _enemiesInfo[rIndex];
-        }
-
-        public EnemyInfo GetEnemyInfo()
-        {
-            if (_index == _enemiesInfo.Length)
+            if(_index == _enemiesData.Count)
                 _index = 0;
-
-            Debug.Log(_enemiesInfo[_index]);
             
-            return _enemiesInfo[_index++];
+            return _enemiesData[_index++];
         }
     }
 }

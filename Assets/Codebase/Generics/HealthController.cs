@@ -13,9 +13,9 @@
             _healthModel.HealthChanged += OnHealthChanged;
         }
 
-        private void OnHealthChanged(int health, int maxHealth)
+        private void OnHealthChanged(int health)
         {
-            _healthView.UpdateHealthBar(health, maxHealth);
+            _healthView.UpdateHealthBar(health);
         }
         
         public void Dispose()

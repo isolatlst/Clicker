@@ -4,14 +4,12 @@ namespace Codebase.Generics
 {
     public class Health
     {
-        public event Action<int, int> HealthChanged;
+        public event Action<int> HealthChanged;
         public event Action Death;
-        private readonly int _maxHealth;
         private int _health;
         
         public Health(int health)
         {
-            _maxHealth = health;
             _health = health;
         }
 
@@ -27,7 +25,7 @@ namespace Codebase.Generics
                 else
                 {
                     _health -= damage;
-                    HealthChanged?.Invoke(_health, _maxHealth);
+                    HealthChanged?.Invoke(_health);
                 }
             }
         }

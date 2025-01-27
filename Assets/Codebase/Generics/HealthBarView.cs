@@ -7,15 +7,19 @@ namespace Codebase.Generics
     public class HealthBarView : MonoBehaviour
     {
         private Slider _slider;
-        
+        private int _maxHealth;
+
         private void Awake()
         {
-            _slider = GetComponent<Slider>();    
+            _slider = GetComponent<Slider>();
         }
 
-        public void UpdateHealthBar(int health, int maxHealth)
+        public void UpdateHealthBar(int health)
         {
-            var healthPercent = (float)health / maxHealth;
+            if (health > _maxHealth)
+                _maxHealth = health;
+
+            var healthPercent = (float)health / _maxHealth;
             _slider.value = healthPercent;
         }
     }

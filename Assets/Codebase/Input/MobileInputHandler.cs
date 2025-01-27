@@ -1,13 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 namespace Codebase.Input
 {
-    public class MobileInputHandler : IInputHandler
+    public class MobileInputHandler : IInputHandler, ITickable
     {
         public event Action Clicked;
         private Touch _touch;
 
+        public void Tick()
+        {
+            HandleInput();
+        }
+        
         private void HandleInput()
         {
             if (UnityEngine.Input.touchCount <= 0)
@@ -17,11 +23,6 @@ namespace Codebase.Input
 
             if (_touch.phase == TouchPhase.Ended)
                 Clicked?.Invoke();
-        }
-
-        public void LocalUpdate()
-        {
-            HandleInput();
         }
     }
 }
