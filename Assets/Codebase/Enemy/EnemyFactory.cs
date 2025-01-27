@@ -1,24 +1,23 @@
 ﻿using Codebase.Data;
 using Codebase.Services;
 using UnityEngine;
+using Zenject;
 
 namespace Codebase.Enemy
 {
     public class EnemyFactory
     {
         private readonly EnemyDataService _enemyDataService;
-        private readonly EnemyFacade _enemyTemplate;
 
-        public EnemyFactory(EnemyDataService enemyDataService, EnemyFacade enemyTemplate)
+        public EnemyFactory(EnemyDataService enemyDataService)
         {
             _enemyDataService = enemyDataService;
-            _enemyTemplate = enemyTemplate;
         }
-
-        public EnemyFacade CreateEnemy()
+        
+        public EnemyFacade Create(EnemyFacade enemyTemplate)
         {
             EnemyConfig enemyConfig = _enemyDataService.GetEnemyInfo();
-            var enemyFacade = GameObject.Instantiate(_enemyTemplate);
+            var enemyFacade = GameObject.Instantiate(enemyTemplate);
             enemyFacade.Init(enemyConfig);
             
             return enemyFacade;

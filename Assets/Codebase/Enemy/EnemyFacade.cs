@@ -32,7 +32,7 @@ namespace Codebase.Enemy
 
         private void OnDestroy()
         {
-            _healthController.Dispose();
+             _healthController.Dispose();
         }
     }
 }

@@ -35,11 +35,6 @@ namespace Codebase.Installers
         private void BindEnemySpawnHandler()
         {
             Container
-                .Bind<EnemyFacade>()
-                .FromComponentInNewPrefab(_enemyTemplate)
-                .AsCached();
-
-            Container
                 .Bind<EnemyFactory>()
                 .AsSingle();
         }

@@ -5,6 +5,7 @@ namespace Codebase.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
+        [SerializeField] private EnemyFacade _enemyTemplate;
         private EnemyFactory _enemyFactory;
         public EnemyFacade CurrentEnemy { get; private set; }
         
@@ -21,7 +22,7 @@ namespace Codebase.Enemy
         
         private void SpawnEnemy()
         {
-            CurrentEnemy = _enemyFactory.CreateEnemy();
+            CurrentEnemy = _enemyFactory.Create(_enemyTemplate);
             CurrentEnemy.transform.SetParent(transform, false);
             
             CurrentEnemy.Health.Death += OnEnemyDeath;
