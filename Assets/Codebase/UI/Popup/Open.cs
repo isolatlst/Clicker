@@ -10,7 +10,7 @@ namespace Codebase.UI.Popup
         [SerializeField] private Image _openBtn;
         [SerializeField] private GameObject _popup;
         [SerializeField] private Image _anticlicker;
-        private const float DURATION = 0.3f;
+        private const float DURATION = 0.15f;
 
         private void Awake()
         {
