@@ -9,6 +9,8 @@ namespace Codebase.UI.Popup
     {
         [SerializeField] private Image _openBtn;
         [SerializeField] private GameObject _popup;
+        [SerializeField] private Image _anticlicker;
+        private const float DURATION = 0.3f;
 
         private void Awake()
         {
@@ -21,7 +23,9 @@ namespace Codebase.UI.Popup
         {
             _popup.SetActive(true);
             DOTween.Sequence()
-                .Append(_popup.transform.DOScale(Vector3.one, 0.3f))
+                .Append(_anticlicker.DOFade(0, 0f))
+                .Append(_popup.transform.DOScale(Vector3.one, DURATION))
+                .Append(_anticlicker.DOFade(0.3f, DURATION))
                 .SetEase(Ease.InQuad)
                 .SetLoops(1, LoopType.Yoyo);
         }
