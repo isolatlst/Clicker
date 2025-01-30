@@ -18,6 +18,7 @@ namespace Codebase.Player
 
         private void Awake()
         {
+            Debug.Log("Player Awake");
             _inputHandler.Clicked += Attack;
         }
 

@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Enemy Data
   m_EditorClassIdentifier: 
   EnemyConfigs:
+  - <Id>k__BackingField: 5000
+    <Health>k__BackingField: 50
+    <Sprite>k__BackingField: {fileID: 21300000, guid: d9a05000b242ee94cbea17f7e24c33e6,
+      type: 3}
   - <Id>k__BackingField: 1
     <Health>k__BackingField: 10
     <Sprite>k__BackingField: {fileID: 21300024, guid: c6551d5c9e174f44ba33a4a4e61b94d0,

@@ -6,7 +6,7 @@ namespace Codebase.Services
 {
     public class EnemyDataService
     {
-        private List<EnemyConfig> _enemiesData;
+        private readonly List<EnemyConfig> _enemiesData;
         private int _index = 0;
 
         public EnemyDataService()

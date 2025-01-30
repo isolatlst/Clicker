@@ -10,15 +10,8 @@ namespace Codebase.GameRoot
         // Screen.sleepTimeout = SleepTimeout.NeverSleep;
         // Screen.orientation  = ScreenOrientation.LandscapeLeft;
         // if (Application.isMobilePlatform) {mobile} else {pc}
-        
-        
-        
-        // [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        // private static void Initialize()
-        // {
-        //     Application.targetFrameRate = 90;
-        //     Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        //     Screen.orientation  = ScreenOrientation.LandscapeLeft;
-        // }
+        // isHaptics = true/false
+        // isAmbientSounds = true/false
+        // isClickSounds = true/false
     }
 }

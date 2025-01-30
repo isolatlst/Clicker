@@ -12,9 +12,10 @@ namespace Codebase.Installers
 
         public override void InstallBindings()
         {
+            Debug.Log("GameplaySceneInstaller InstallBindings");
             BindInput();
             BindEnemyDataService();
-            BindEnemySpawnHandler();
+            BindEnemyFactory();
         }
 
         private void BindInput()
@@ -32,7 +33,7 @@ namespace Codebase.Installers
                 .AsSingle();
         }
 
-        private void BindEnemySpawnHandler()
+        private void BindEnemyFactory()
         {
             Container
                 .Bind<EnemyFactory>()
