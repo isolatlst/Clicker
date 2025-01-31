@@ -7,25 +7,24 @@ namespace Codebase.Player
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private EnemySpawner _spawner;
         private IInputHandler _inputHandler;
+        private EnemyFacade _enemy;
 
         [Inject]
-        public void Construct(IInputHandler input)
+        public void Construct(IInputHandler input, EnemyFacade enemyFacade)
         {
             _inputHandler = input;
+            _enemy = enemyFacade;
         }
 
         private void Awake()
         {
-            Debug.Log("Player Awake");
             _inputHandler.Clicked += Attack;
         }
 
         private void Attack()
         {
-            if (_spawner.CurrentEnemy != null)
-                _spawner.CurrentEnemy.Health.TakeDamage(1);
+            _enemy.Health.TakeDamage(1);
         }
 
         private void OnDestroy()

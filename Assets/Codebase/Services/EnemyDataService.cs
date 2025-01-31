@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Codebase.Data;
 using UnityEngine;
 
@@ -6,20 +7,22 @@ namespace Codebase.Services
 {
     public class EnemyDataService
     {
-        private readonly List<EnemyConfig> _enemiesData;
+        private List<EnemyConfig> _enemiesData;
         private int _index = 0;
 
-        public EnemyDataService()
+        public async Task LoadData() // норм?
         {
-            EnemyData data = Resources.Load<EnemyData>("Enemies/Enemy Data");
+            await Task.Yield();
+
+            var data = Resources.Load<EnemyData>("Enemies/Enemy Data");
             _enemiesData = data.EnemyConfigs;
         }
 
         public EnemyConfig GetEnemyInfo()
         {
-            if(_index == _enemiesData.Count)
+            if (_index == _enemiesData.Count)
                 _index = 0;
-            
+
             return _enemiesData[_index++];
         }
     }

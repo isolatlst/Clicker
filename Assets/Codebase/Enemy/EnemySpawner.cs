@@ -5,33 +5,30 @@ namespace Codebase.Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private EnemyFacade _enemyTemplate;
         private EnemyFactory _enemyFactory;
-        public EnemyFacade CurrentEnemy { get; private set; }
-        
+        private EnemyFacade _currentEnemy;
+
         [Inject]
-        public void Construct (EnemyFactory enemyFactory)
+        public void Construct(EnemyFactory enemyFactory)
         {
             _enemyFactory = enemyFactory;
         }
 
-        private void Start()
+        private async void Start()
         {
+            await _enemyFactory.LoadData();
             SpawnEnemy();
         }
-        
+
         private void SpawnEnemy()
         {
-            CurrentEnemy = _enemyFactory.Create(_enemyTemplate);
-            CurrentEnemy.transform.SetParent(transform, false);
-            
-            CurrentEnemy.Health.Death += OnEnemyDeath;
+            _currentEnemy = _enemyFactory.Create();
+            _currentEnemy.Health.Death += OnEnemyDeath;
         }
-        
+
         private void OnEnemyDeath()
         {
-            CurrentEnemy.Health.Death -= OnEnemyDeath;
-            Destroy(CurrentEnemy.gameObject);
+            _currentEnemy.Health.Death -= OnEnemyDeath;
             SpawnEnemy();
         }
     }

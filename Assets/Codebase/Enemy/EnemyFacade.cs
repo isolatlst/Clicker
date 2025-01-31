@@ -9,6 +9,7 @@ namespace Codebase.Enemy
     {
         [SerializeField] private HealthBarView _healthBarView;
         private HealthController _healthController;
+        private EnemyAnimation _enemyAnimation;
         private EnemyConfig _config;
         private Health _health;
         public Health Health => _health;
@@ -17,8 +18,16 @@ namespace Codebase.Enemy
 
         public void Init(EnemyConfig config)
         {
+            gameObject.SetActive(true); // норм? временное решение до бут сцены
             _config = config;
+            DisposePrevious();
             SetupConfig();
+        }
+
+        private void DisposePrevious() // норм?
+        {
+            _enemyAnimation?.Dispose();
+            _healthController?.Dispose();
         }
 
         private void SetupConfig()
@@ -26,13 +35,9 @@ namespace Codebase.Enemy
             GetComponent<Image>().sprite = _config.Sprite;
             _health = new Health(_config.Health);
             _healthController = new HealthController(_health, _healthBarView);
+            _enemyAnimation = new EnemyAnimation(this);
         }
 
         #endregion
-
-        private void OnDestroy()
-        {
-             _healthController.Dispose();
-        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -10,40 +9,48 @@ namespace Codebase
         [SerializeField] private TextMeshProUGUI _FPSText;
         [SerializeField] private TextMeshProUGUI _bestFPSText;
         [SerializeField] private TextMeshProUGUI _lowestFPSText;
-        private int _bestFPS;
-        private int _lowestFPS = Int32.MaxValue - 1;
-        private float _currentFPS;
+        [SerializeField] private TextMeshProUGUI _refreshRateText;
 
-        private void Awake()
+        private int _bestFPS;
+        private int _lowestFPS = int.MaxValue;
+        private float _fpsSum;
+        private int _frameCount;
+        private bool _isGameLoaded;
+
+        private void Start()
         {
             StartCoroutine(UpdateFPSView());
+            _refreshRateText.text = $"RR, Hz: {Screen.currentResolution.refreshRate}";
         }
 
         private IEnumerator UpdateFPSView()
         {
-            while (true)
+            while (gameObject.activeSelf)
             {
                 yield return new WaitForSecondsRealtime(1.0f);
-                _FPSText.text = "FPS: " + (int)_currentFPS;
+
+                var avgFPS = (int)(_fpsSum / _frameCount);
+                _FPSText.text = $"FPS: {avgFPS}";
                 _bestFPSText.text = $"Best: {_bestFPS}";
                 _lowestFPSText.text = $"Low: {_lowestFPS}";
+
+                _fpsSum = 0;
+                _frameCount = 0;
+                _isGameLoaded = true;
             }
         }
 
         private void Update()
         {
-            UpdateFPS();
-        }
+            var currentFPS = 1f / Time.unscaledDeltaTime;
+            _fpsSum += currentFPS;
+            _frameCount++;
 
-        private void UpdateFPS()
-        {
-            _currentFPS = 1f / Time.deltaTime;
+            if (currentFPS > _bestFPS)
+                _bestFPS = (int)currentFPS;
 
-            if (_currentFPS > _bestFPS)
-                _bestFPS = (int)_currentFPS;
-
-            if (_lowestFPS > _currentFPS)
-                _lowestFPS = (int)_currentFPS;
+            if (currentFPS < _lowestFPS && _isGameLoaded)
+                _lowestFPS = (int)currentFPS;
         }
     }
 }

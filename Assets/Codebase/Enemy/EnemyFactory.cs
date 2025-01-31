@@ -1,4 +1,5 @@
-﻿using Codebase.Data;
+﻿using System.Threading.Tasks;
+using Codebase.Data;
 using Codebase.Services;
 using UnityEngine;
 using Zenject;
@@ -8,19 +9,25 @@ namespace Codebase.Enemy
     public class EnemyFactory
     {
         private readonly EnemyDataService _enemyDataService;
+        private readonly EnemyFacade _enemyTemplate;
 
-        public EnemyFactory(EnemyDataService enemyDataService)
+        public EnemyFactory(EnemyDataService enemyDataService, EnemyFacade enemyTemplate)
         {
             _enemyDataService = enemyDataService;
+            _enemyTemplate = enemyTemplate;
+        }
+
+        public async Task LoadData()
+        {
+            await _enemyDataService.LoadData();
         }
         
-        public EnemyFacade Create(EnemyFacade enemyTemplate)
+        public EnemyFacade Create()
         {
             EnemyConfig enemyConfig = _enemyDataService.GetEnemyInfo();
-            var enemyFacade = GameObject.Instantiate(enemyTemplate);
-            enemyFacade.Init(enemyConfig);
+            _enemyTemplate.Init(enemyConfig);
             
-            return enemyFacade;
+            return _enemyTemplate;
         }
     }
 }

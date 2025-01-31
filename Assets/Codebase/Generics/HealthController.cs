@@ -21,6 +21,7 @@
         public void Dispose()
         {
             _healthModel.HealthChanged -= OnHealthChanged;
+            _healthView.Reset();
         }
     }
 }

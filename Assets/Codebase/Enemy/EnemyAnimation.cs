@@ -4,30 +4,31 @@ using UnityEngine.UI;
 
 namespace Codebase.Enemy
 {
-    public class EnemyAnimation : MonoBehaviour
+    public class EnemyAnimation
     {
-        [SerializeField] private EnemyFacade _enemyFacade;
+        private readonly EnemyFacade _enemyFacade;
         private Sequence _sequence;
 
-        private void Start()
+        public EnemyAnimation(EnemyFacade enemyFacade)
         {
+            _enemyFacade = enemyFacade;
             _enemyFacade.Health.HealthChanged += TakeDamage;
         }
-        
+
         private void TakeDamage(int damage)
         {
-            if (TryGetComponent(out Image icon))
+            if (_enemyFacade.TryGetComponent(out Image icon))
             {
                 _sequence.Complete();
                 _sequence = DOTween.Sequence()
-                    .Append(transform.DOScale(new Vector3(0.95f, 0.95f, 0.95f), 0.2f))
+                    .Append(_enemyFacade.transform.DOScale(new Vector3(0.95f, 0.95f, 0.95f), 0.2f))
                     .Join(icon.DOColor(new Color(50, 0, 0, 1f), 0.1f))
-                    .Append(transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f))
+                    .Append(_enemyFacade.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f))
                     .Join(icon.DOColor(new Color(255, 255, 255, 1f), 0.1f));
             }
         }
         
-        private void OnDestroy()
+        public void Dispose()
         {
             if (_sequence != null)
             {

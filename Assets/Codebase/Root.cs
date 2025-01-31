@@ -4,13 +4,13 @@ namespace Codebase
 {
     public class Root
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)] // норм?
         private static void Initialize()
         {
             QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 90;
+            Application.targetFrameRate = Screen.currentResolution.refreshRate;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            Screen.orientation  = ScreenOrientation.Portrait;
+            Screen.orientation = ScreenOrientation.Portrait;
         }
     }
 }
