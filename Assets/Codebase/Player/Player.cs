@@ -29,10 +29,7 @@ namespace Codebase.Player
 
         private void Awake()
         {
-            _playerStats = _saveSystem.Load<PlayerStats>("PlayerStats");
-            
-            if (_playerStats == null)
-                _playerStats = new PlayerStats();
+            _playerStats = _saveSystem.Load<PlayerStats>(new PlayerStats());
         }
 
         private void Start()
@@ -62,7 +59,7 @@ namespace Codebase.Player
             _playerStats.Damage = damage;
             _playerStats.PeriodicDamage = periodicdamage;
             
-            _saveSystem.Save("PlayerStats", _playerStats);
+            _saveSystem.Save(_playerStats);
             _inputHandler.Clicked -= Attack;
         }
     }
