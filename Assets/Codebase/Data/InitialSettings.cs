@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Codebase.GameRoot
+namespace Codebase.Data
 {
     [Serializable]
     public class InitialSettings

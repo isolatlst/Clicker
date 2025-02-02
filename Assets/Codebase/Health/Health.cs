@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Codebase.Generics
+namespace Codebase.Health
 {
     public class Health
     {
-        public event Action<int> HealthChanged;
+        public event Action<int, bool> HealthChanged; // норм?
         public event Action Death;
         private int _health;
         
@@ -13,7 +13,7 @@ namespace Codebase.Generics
             _health = health;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, bool isAnimated = true)
         {
             if (damage > 0)
             {
@@ -25,7 +25,7 @@ namespace Codebase.Generics
                 else
                 {
                     _health -= damage;
-                    HealthChanged?.Invoke(_health);
+                    HealthChanged?.Invoke(_health, isAnimated);
                 }
             }
         }

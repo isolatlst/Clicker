@@ -15,8 +15,11 @@ namespace Codebase.Enemy
             _enemyFacade.Health.HealthChanged += TakeDamage;
         }
 
-        private void TakeDamage(int damage)
+        private void TakeDamage(int damage, bool isAnimated)
         {
+            if(!isAnimated)
+                return;
+                
             if (_enemyFacade.TryGetComponent(out Image icon))
             {
                 _sequence.Complete();

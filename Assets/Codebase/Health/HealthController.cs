@@ -1,4 +1,4 @@
-﻿namespace Codebase.Generics
+﻿namespace Codebase.Health
 {
     public class HealthController
     {
@@ -13,7 +13,7 @@
             _healthModel.HealthChanged += OnHealthChanged;
         }
 
-        private void OnHealthChanged(int health)
+        private void OnHealthChanged(int health, bool isAnimated)
         {
             _healthView.UpdateHealthBar(health);
         }

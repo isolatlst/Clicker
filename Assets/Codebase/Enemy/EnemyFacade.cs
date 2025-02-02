@@ -1,5 +1,5 @@
-﻿using Codebase.Data;
-using Codebase.Generics;
+﻿using Codebase.Data.Enemy;
+using Codebase.Health;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +11,16 @@ namespace Codebase.Enemy
         private HealthController _healthController;
         private EnemyAnimation _enemyAnimation;
         private EnemyConfig _config;
-        private Health _health;
-        public Health Health => _health;
+        private Health.Health _health;
+        private Image _image;
+        public Health.Health Health => _health;
 
         #region Initialization
+
+        private void Awake()
+        {
+            _image = GetComponent<Image>();
+        }
 
         public void Init(EnemyConfig config)
         {
@@ -32,8 +38,8 @@ namespace Codebase.Enemy
 
         private void SetupConfig()
         {
-            GetComponent<Image>().sprite = _config.Sprite;
-            _health = new Health(_config.Health);
+            _image.sprite = _config.Sprite;
+            _health = new Health.Health(_config.Health);
             _healthController = new HealthController(_health, _healthBarView);
             _enemyAnimation = new EnemyAnimation(this);
         }

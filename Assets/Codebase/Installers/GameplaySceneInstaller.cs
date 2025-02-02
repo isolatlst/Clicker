@@ -1,4 +1,5 @@
-﻿using Codebase.Enemy;
+﻿using Codebase.Data.SaveSystem;
+using Codebase.Enemy;
 using Codebase.Input;
 using Codebase.Services;
 using UnityEngine;
@@ -12,9 +13,18 @@ namespace Codebase.Installers
 
         public override void InstallBindings()
         {
+            BindSaveSystem();
             BindInput();
             BindEnemyDataService();
             BindEnemyFactory();
+        }
+
+        private void BindSaveSystem()
+        {
+            Container
+                .Bind<ISaveSystem>()
+                .To<SaveSystem>()
+                .AsSingle();
         }
 
         private void BindInput()

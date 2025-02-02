@@ -1457,6 +1457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a046a1d83754102889c642f55c2312a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
+  periodicdamage: 0
 --- !u!114 &2065130368 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1373301216298382939, guid: a63444e4c291cd84fb61efbc6bcf6c7a,

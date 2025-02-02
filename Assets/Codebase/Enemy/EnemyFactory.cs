@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Codebase.Data;
+using Codebase.Data.Enemy;
 using Codebase.Services;
-using UnityEngine;
-using Zenject;
 
 namespace Codebase.Enemy
 {
@@ -21,12 +19,12 @@ namespace Codebase.Enemy
         {
             await _enemyDataService.LoadData();
         }
-        
+
         public EnemyFacade Create()
         {
             EnemyConfig enemyConfig = _enemyDataService.GetEnemyInfo();
             _enemyTemplate.Init(enemyConfig);
-            
+
             return _enemyTemplate;
         }
     }

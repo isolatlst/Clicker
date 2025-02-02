@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Codebase.Data
+namespace Codebase.Data.Enemy
 {
     [Serializable]
     public sealed class EnemyConfig

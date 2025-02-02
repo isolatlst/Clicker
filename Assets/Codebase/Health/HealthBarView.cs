@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Codebase.Generics
+namespace Codebase.Health
 {
     [RequireComponent(typeof(Slider))]
     public class HealthBarView : MonoBehaviour

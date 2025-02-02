@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Codebase.Data;
+using Codebase.Data.Enemy;
 using UnityEngine;
 
 namespace Codebase.Services
@@ -15,7 +16,7 @@ namespace Codebase.Services
             await Task.Yield();
 
             var data = Resources.Load<EnemyData>("Enemies/Enemy Data");
-            _enemiesData = data.EnemyConfigs;
+            _enemiesData = data.EnemiesConfigs;
         }
 
         public EnemyConfig GetEnemyInfo()
