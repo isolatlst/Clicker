@@ -13,18 +13,9 @@ namespace Codebase.Installers
 
         public override void InstallBindings()
         {
-            BindSaveSystem();
             BindInput();
             BindEnemyDataService();
             BindEnemyFactory();
-        }
-
-        private void BindSaveSystem()
-        {
-            Container
-                .Bind<ISaveSystem>()
-                .To<SaveSystem>()
-                .AsSingle();
         }
 
         private void BindInput()

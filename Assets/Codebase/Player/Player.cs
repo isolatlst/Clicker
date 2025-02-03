@@ -4,32 +4,30 @@ using Codebase.Data.SaveSystem;
 using Codebase.Enemy;
 using Codebase.Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Codebase.Player
 {
     public class Player : MonoBehaviour
     {
-        [SerializeField] private int damage;
-        [SerializeField] private int periodicdamage;
+        [SerializeField] private SaveRepository _saveRepository;
         private IInputHandler _inputHandler;
         private PlayerStats _playerStats;
-        private ISaveSystem _saveSystem;
         private EnemyFacade _enemy;
 
         #region Initialization
 
         [Inject]
-        public void Construct(IInputHandler input, EnemyFacade enemyFacade, ISaveSystem saveSystem)
+        public void Construct(IInputHandler input, EnemyFacade enemyFacade)
         {
             _inputHandler = input;
             _enemy = enemyFacade;
-            _saveSystem = saveSystem;
         }
 
         private void Awake()
         {
-            _playerStats = _saveSystem.Load<PlayerStats>(new PlayerStats());
+            _playerStats = _saveRepository.Load(new PlayerStats());
         }
 
         private void Start()
@@ -44,7 +42,7 @@ namespace Codebase.Player
         {
             _enemy.Health.TakeDamage(_playerStats.Damage);
         }
-        
+
         private IEnumerator PeriodicAttack()
         {
             while (true)
@@ -53,13 +51,10 @@ namespace Codebase.Player
                 _enemy.Health.TakeDamage(_playerStats.PeriodicDamage, false);
             }
         }
-        
+
         private void OnDestroy()
         {
-            _playerStats.Damage = damage;
-            _playerStats.PeriodicDamage = periodicdamage;
-            
-            _saveSystem.Save(_playerStats);
+            _saveRepository.Save(_playerStats);
             _inputHandler.Clicked -= Attack;
         }
     }

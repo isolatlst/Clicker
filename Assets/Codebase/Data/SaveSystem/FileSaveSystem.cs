@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Codebase.Data.SaveSystem
 {
-    public class SaveSystem : ISaveSystem
+    public class FileSaveSystem : ISaveSystem
     {
         private readonly string _savesPath;
 
-        public SaveSystem()
+        public FileSaveSystem()
         {
             var directory = Application.persistentDataPath + "/Saves";
             if (!Directory.Exists(directory)) 
