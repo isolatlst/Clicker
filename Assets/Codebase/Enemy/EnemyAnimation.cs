@@ -1,10 +1,11 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Codebase.Enemy
 {
-    public class EnemyAnimation
+    public class EnemyAnimation : IDisposable
     {
         private readonly EnemyFacade _enemyFacade;
         private Sequence _sequence;

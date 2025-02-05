@@ -1,5 +1,4 @@
-﻿using Codebase.Data.SaveSystem;
-using Codebase.Enemy;
+﻿using Codebase.Enemy;
 using Codebase.Input;
 using Codebase.Services;
 using UnityEngine;
@@ -41,12 +40,11 @@ namespace Codebase.Installers
                 .FromInstance(_enemyTemplate)
                 .AsSingle()
                 .NonLazy();
-            
+
             Container
                 .Bind<EnemyFactory>()
                 .AsSingle()
                 .NonLazy();
-
         }
     }
 }

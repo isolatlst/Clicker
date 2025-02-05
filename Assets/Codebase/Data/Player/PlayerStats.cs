@@ -21,6 +21,6 @@ namespace Codebase.Data.Player
         }
 
         public override string ToString() 
-            => string.Format("Damage: {0}, PeriodicDamage: {1}", Damage, PeriodicDamage);
+            => $"Damage: {Damage}, PeriodicDamage: {PeriodicDamage}";
     }
 }

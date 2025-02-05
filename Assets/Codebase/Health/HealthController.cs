@@ -1,6 +1,8 @@
-﻿namespace Codebase.Health
+﻿using System;
+
+namespace Codebase.Health
 {
-    public class HealthController
+    public class HealthController : IDisposable
     {
         private readonly Health _healthModel;
         private readonly HealthBarView _healthView;
