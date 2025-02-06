@@ -5,8 +5,8 @@ namespace Codebase.Data.Player
     [Serializable]
     public sealed class PlayerStats
     {
-        public int Damage { get;  set; }
-        public int PeriodicDamage { get;  set; }
+        public int Damage { get; set; }
+        public int PeriodicDamage { get; set; }
 
         public PlayerStats()
         {
@@ -20,7 +20,7 @@ namespace Codebase.Data.Player
             PeriodicDamage = periodicDamage;
         }
 
-        public override string ToString() 
+        public override string ToString()
             => $"Damage: {Damage}, PeriodicDamage: {PeriodicDamage}";
     }
 }

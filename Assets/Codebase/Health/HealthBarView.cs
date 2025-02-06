@@ -6,24 +6,24 @@ namespace Codebase.Health
     [RequireComponent(typeof(Slider))]
     public class HealthBarView : MonoBehaviour
     {
-        private Slider _slider;
+        private Slider _viewSlider;
 
         private void Awake()
         {
-            _slider = GetComponent<Slider>();
+            _viewSlider = GetComponent<Slider>();
         }
 
         public void Reset()
         {
-            _slider.maxValue = 1;
+            _viewSlider.maxValue = 1;
         }
 
         public void UpdateHealthBar(int health)
         {
-            if (health > _slider.maxValue)
-                _slider.maxValue = health + 1; // норм?
+            if (health > _viewSlider.maxValue)
+                _viewSlider.maxValue = health; // норм? возможно, нужен метод инициализации
             
-            _slider.value = health;
+            _viewSlider.value = health;
         }
     }
 }
