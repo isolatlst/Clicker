@@ -33,13 +33,19 @@ namespace Codebase.Data.SaveSystem
                 if (savedData is JObject jObject)
                     return jObject.ToObject<T>();
             }
-
+            
             return dataByDefault;
         }
-
+        
+        //TODO поменять перед билдом
         private void OnDestroy()
         {
             _saveSystem.Save(_dataForSave);
         }
+        // private void OnApplicationPause(bool isPaused) 
+        // {
+        //     if (isPaused)   
+        //         _saveSystem.Save(_dataForSave);
+        // }
     }
 }

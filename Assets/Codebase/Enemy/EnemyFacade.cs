@@ -11,9 +11,9 @@ namespace Codebase.Enemy
         private HealthController _healthController;
         private EnemyAnimation _enemyAnimation;
         private EnemyConfig _config;
-        private Health.Health _health;
         private Image _image;
-        public Health.Health Health => _health;
+        public Health.Health Health {get; private set;}
+        public int CoinsPerDeath { get; private set; }
 
         #region Initialization
 
@@ -24,7 +24,6 @@ namespace Codebase.Enemy
 
         public void Init(EnemyConfig config)
         {
-            gameObject.SetActive(true); // норм? временное решение до бут сцены
             _config = config;
             DisposePrevious();
             SetupConfig();
@@ -39,9 +38,10 @@ namespace Codebase.Enemy
         private void SetupConfig()
         {
             _image.sprite = _config.Sprite;
-            _health = new Health.Health(_config.Health);
-            _healthController = new HealthController(_health, _healthBarView);
+            Health = new Health.Health(_config.Health);
+            _healthController = new HealthController(Health, _healthBarView);
             _enemyAnimation = new EnemyAnimation(this);
+            CoinsPerDeath = _config.CoinsPerDeath;
         }
 
         #endregion

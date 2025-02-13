@@ -4,7 +4,7 @@ namespace Codebase
 {
     public class Root
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)] // норм?
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
             QualitySettings.vSyncCount = 0;

@@ -4,7 +4,7 @@ namespace Codebase.Health
 {
     public class Health
     {
-        public event Action<int, bool> HealthChanged; // норм?
+        public event Action<int, bool> HealthChanged;
         public event Action Death;
         private int _health;
         

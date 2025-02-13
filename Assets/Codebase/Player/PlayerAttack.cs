@@ -13,7 +13,7 @@ namespace Codebase.Player
     {
         [SerializeField] private SaveRepository _saveRepository;
         private IInputHandler _inputHandler;
-        private PlayerStats _playerStats;
+        private AttackStats _attackStats;
         private EnemyFacade _enemy;
         
         #region Debug
@@ -26,9 +26,9 @@ namespace Codebase.Player
             int.TryParse(_damage.text, out var dmg);
             int.TryParse(_periodic.text, out var periodicDmg);
             if(dmg != 0)
-                _playerStats.Damage = dmg;
+                _attackStats.Damage = dmg;
             if(periodicDmg != 0)
-                _playerStats.PeriodicDamage = periodicDmg;
+                _attackStats.PeriodicDamage = periodicDmg;
         }
         
         #endregion
@@ -44,7 +44,7 @@ namespace Codebase.Player
 
         private void Awake()
         {
-            _playerStats = _saveRepository.Load(new PlayerStats());
+            _attackStats = _saveRepository.Load(new AttackStats());
         }
 
         private void Start()
@@ -57,7 +57,7 @@ namespace Codebase.Player
 
         private void Attack()
         {
-            _enemy.Health.TakeDamage(_playerStats.Damage);
+            _enemy.Health.TakeDamage(_attackStats.Damage);
         }
 
         private IEnumerator PeriodicAttack()
@@ -65,14 +65,14 @@ namespace Codebase.Player
             while (true)
             {
                 yield return new WaitForSecondsRealtime(1f);
-                _enemy.Health.TakeDamage(_playerStats.PeriodicDamage, false);
+                _enemy.Health.TakeDamage(_attackStats.PeriodicDamage, false);
             }
         }
 
         //TODO поменять перед билдом на закоменченое
         private void OnDestroy()
         {
-            _saveRepository.Save(_playerStats);
+            _saveRepository.Save(_attackStats);
             _inputHandler.Clicked -= Attack;
         }
         // private void OnApplicationPause(bool isPaused) 

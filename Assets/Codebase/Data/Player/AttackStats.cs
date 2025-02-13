@@ -3,18 +3,18 @@
 namespace Codebase.Data.Player
 {
     [Serializable]
-    public sealed class PlayerStats
+    public sealed class AttackStats
     {
         public int Damage { get; set; }
         public int PeriodicDamage { get; set; }
 
-        public PlayerStats()
+        public AttackStats()
         {
             Damage = 1;
             PeriodicDamage = 0;
         }
 
-        public PlayerStats(int damage, int periodicDamage)
+        public AttackStats(int damage, int periodicDamage)
         {
             Damage = damage;
             PeriodicDamage = periodicDamage;
