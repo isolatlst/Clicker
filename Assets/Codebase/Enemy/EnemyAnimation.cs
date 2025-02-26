@@ -1,46 +1,43 @@
-﻿using System;
+﻿using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Codebase.Enemy
 {
-    public class EnemyAnimation : IDisposable
+    public class EnemyAnimation : MonoBehaviour
     {
-        private readonly EnemyFacade _enemyFacade;
+        [SerializeField] private Image _enemyView;
         private Sequence _sequence;
 
-        public EnemyAnimation(EnemyFacade enemyFacade)
+        private void Awake()
         {
-            _enemyFacade = enemyFacade;
-            _enemyFacade.Health.HealthChanged += TakeDamage;
+            SignalBus.Subscribe<HealthChangedSignal>(TakeDamage);
         }
 
-        private void TakeDamage(int damage, bool isAnimated)
+        private void TakeDamage(HealthChangedSignal signal)
         {
-            if(!isAnimated)
+            if (!signal.IsAnimated)
                 return;
-                
-            if (_enemyFacade.TryGetComponent(out Image icon))
-            {
-                _sequence.Complete();
-                _sequence = DOTween.Sequence()
-                    .Append(_enemyFacade.transform.DOScale(new Vector3(0.95f, 0.95f, 0.95f), 0.2f))
-                    .Join(icon.DOColor(new Color(50, 0, 0, 1f), 0.1f))
-                    .Append(_enemyFacade.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f))
-                    .Join(icon.DOColor(new Color(255, 255, 255, 1f), 0.1f));
-            }
+
+            _sequence.Complete();
+            _sequence = DOTween.Sequence()
+                .Append(_enemyView.transform.DOScale(new Vector3(0.95f, 0.95f, 0.95f), 0.2f))
+                .Join(_enemyView.DOColor(new Color(50, 0, 0, 1f), 0.1f))
+                .Append(_enemyView.transform.DOScale(new Vector3(1f, 1f, 1f), 0.2f))
+                .Join(_enemyView.DOColor(new Color(255, 255, 255, 1f), 0.1f));
         }
-        
-        public void Dispose()
+
+        private void OnDestroy()
         {
             if (_sequence != null)
             {
                 _sequence.Complete();
                 _sequence = null;
             }
-            
-            _enemyFacade.Health.HealthChanged -= TakeDamage;
+
+            SignalBus.Unsubscribe<HealthChangedSignal>(TakeDamage);
         }
     }
 }

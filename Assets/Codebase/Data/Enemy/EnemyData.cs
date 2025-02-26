@@ -6,6 +6,6 @@ namespace Codebase.Data.Enemy
     [CreateAssetMenu(menuName = "Enemies/Create Enemy Data", fileName = "Enemy Data")]
     public class EnemyData : ScriptableObject
     {
-        [field: SerializeField] public List<EnemyConfig> EnemiesConfigs;
+        [field: SerializeField] public List<EnemyConfig> EnemiesConfigs { get; private set; }
     }
 }

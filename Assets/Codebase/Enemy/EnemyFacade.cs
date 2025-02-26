@@ -1,49 +1,38 @@
-﻿using Codebase.Data.Enemy;
-using Codebase.Health;
+﻿using Codebase.Health;
+using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Codebase.Enemy
 {
-    public class EnemyFacade : MonoBehaviour
+    public class EnemyFacade : MonoBehaviour, IInitializable
     {
+        public Health.Health Health { get; private set; }
         [SerializeField] private HealthBarView _healthBarView;
-        private HealthController _healthController;
-        private EnemyAnimation _enemyAnimation;
-        private EnemyConfig _config;
+        private EnemyReward _reward;
         private Image _image;
-        public Health.Health Health {get; private set;}
-        public int CoinsPerDeath { get; private set; }
 
-        #region Initialization
-
-        private void Awake()
+        public void Initialize()
         {
+            SignalBus.Subscribe<SpawnEnemySignal>(SetupConfig);
+            
             _image = GetComponent<Image>();
+            _reward = GetComponent<EnemyReward>();
+            Health = new Health.Health();
         }
 
-        public void Init(EnemyConfig config)
+        private void SetupConfig(SpawnEnemySignal signal)
         {
-            _config = config;
-            DisposePrevious();
-            SetupConfig();
+            _image.sprite = signal.Config.Sprite;
+            Health.SetHealth(signal.Config.Health);
+            _reward.SetReward(signal.Config.CoinsPerDeath);
         }
 
-        private void DisposePrevious() // норм?
+        private void OnDestroy()
         {
-            _enemyAnimation?.Dispose();
-            _healthController?.Dispose();
+            SignalBus.Unsubscribe<SpawnEnemySignal>(SetupConfig);
         }
-
-        private void SetupConfig()
-        {
-            _image.sprite = _config.Sprite;
-            Health = new Health.Health(_config.Health);
-            _healthController = new HealthController(Health, _healthBarView);
-            _enemyAnimation = new EnemyAnimation(this);
-            CoinsPerDeath = _config.CoinsPerDeath;
-        }
-
-        #endregion
     }
 }

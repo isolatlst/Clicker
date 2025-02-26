@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals.Wallet;
+using TMPro;
 using UnityEngine;
 
 namespace Codebase.Wallet
@@ -6,10 +8,20 @@ namespace Codebase.Wallet
     public class WalletView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _viewText;
-        
-        public void UpdateCoinsView(int amount)
+
+        private void Awake()
         {
-            _viewText.text = amount.ToString();
+            SignalBus.Subscribe<CoinsChangedSignal>(UpdateCoinsView);
+        }
+
+        private void UpdateCoinsView(CoinsChangedSignal signal)
+        {
+            _viewText.text = signal.Coins.ToString();
+        }
+
+        private void OnDestroy()
+        {
+            SignalBus.Unsubscribe<CoinsChangedSignal>(UpdateCoinsView);
         }
     }
 }

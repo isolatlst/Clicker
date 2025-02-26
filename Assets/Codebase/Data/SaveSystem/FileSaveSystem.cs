@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Codebase.Data.SaveSystem
 {
-    public class FileSaveSystem : ISaveSystem
+    public class FileSaveSystem
     {
         private readonly string _savesPath;
 

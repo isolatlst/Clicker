@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals;
 
 namespace Codebase.Health
 {
     public class Health
     {
-        public event Action<int, bool> HealthChanged;
-        public event Action Death;
         private int _health;
-        
-        public Health(int health)
+
+        public void SetHealth(int health = default)
         {
             _health = health;
+            SignalBus.Fire(new HealthChangedSignal(_health, false));
         }
 
         public void TakeDamage(int damage, bool isAnimated = true)
@@ -20,12 +20,12 @@ namespace Codebase.Health
                 if (_health <= damage)
                 {
                     _health = 0;
-                    Death?.Invoke();   
+                    SignalBus.Fire<EnemyDeathSignal>();
                 }
                 else
                 {
                     _health -= damage;
-                    HealthChanged?.Invoke(_health, isAnimated);
+                    SignalBus.Fire(new HealthChangedSignal(_health, isAnimated));
                 }
             }
         }

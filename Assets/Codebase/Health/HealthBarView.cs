@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Codebase.Health
@@ -11,19 +13,27 @@ namespace Codebase.Health
         private void Awake()
         {
             _viewSlider = GetComponent<Slider>();
+            SignalBus.Subscribe<HealthChangedSignal>(UpdateHealthBar);
+            SignalBus.Subscribe<EnemyDeathSignal>(ResetHealthBar);
         }
 
-        public void Reset()
+        private void ResetHealthBar(EnemyDeathSignal signal)
         {
             _viewSlider.maxValue = 1;
         }
 
-        public void UpdateHealthBar(int health)
+        private void UpdateHealthBar(HealthChangedSignal signal)
         {
-            if (health > _viewSlider.maxValue)
-                _viewSlider.maxValue = health; // норм? возможно, нужен метод инициализации
-            
-            _viewSlider.value = health;
+            if (signal.Health > _viewSlider.maxValue)
+                _viewSlider.maxValue = signal.Health;
+
+            _viewSlider.value = signal.Health;
+        }
+
+        private void OnDestroy()
+        {
+            SignalBus.Unsubscribe<HealthChangedSignal>(UpdateHealthBar);
+            SignalBus.Unsubscribe<EnemyDeathSignal>(ResetHealthBar);
         }
     }
 }

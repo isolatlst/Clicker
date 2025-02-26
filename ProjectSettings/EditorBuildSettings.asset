@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Boot.unity
+    guid: c861a08a317a47742908e29bb342bf51
+  - enabled: 1
     path: Assets/Scenes/Clicker.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}

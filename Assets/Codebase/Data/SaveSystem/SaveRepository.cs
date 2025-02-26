@@ -1,26 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace Codebase.Data.SaveSystem
 {
-    public class SaveRepository : MonoBehaviour
+    public class SaveRepository : IInitializable, IDisposable
     {
-        private Dictionary<string, object> _dataForSave;
-        private ISaveSystem _saveSystem;
-
+        private Dictionary<string, object> _dataForSave = new();
+        private FileSaveSystem _saveSystem;
+        
+        public SaveRepository(FileSaveSystem saveSystem)
+        {
+            _saveSystem = saveSystem;
+        }
+        
         private string GetKey<T>() => typeof(T).Name;
 
-        private void Awake()
+        public void Initialize()
         {
-            _saveSystem = new FileSaveSystem();
-            _dataForSave = new Dictionary<string, object>();
             _dataForSave = _saveSystem.Load(_dataForSave);
         }
 
-        public void Save<T>(T dataToSave)
+        public void Save<T>(T dataForSave)
         {
-            _dataForSave[GetKey<T>()] = dataToSave;
+            _dataForSave[GetKey<T>()] = dataForSave;
         }
 
         public T Load<T>(T dataByDefault)
@@ -36,16 +42,21 @@ namespace Codebase.Data.SaveSystem
             
             return dataByDefault;
         }
-        
-        //TODO поменять перед билдом
-        private void OnDestroy()
+
+        public void Dispose()
         {
             _saveSystem.Save(_dataForSave);
+            Print();
         }
-        // private void OnApplicationPause(bool isPaused) 
-        // {
-        //     if (isPaused)   
-        //         _saveSystem.Save(_dataForSave);
-        // }
+
+        public void Print()
+        {
+            var str = new StringBuilder();
+            foreach (var stat in _dataForSave)
+            {
+                str.Append(stat.Key + " : " + stat.Value + "\n");
+            }
+            Debug.Log(str.ToString());
+        }
     }
 }
