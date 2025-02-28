@@ -9,6 +9,7 @@ namespace Codebase.Infrastructure.Installers.ProjectContext
         {
             SaveSystemInstaller.Install(Container);
             EnemyServicesInstaller.Install(Container);
+            StoreServiceInstaller.Install(Container);
             WalletInstaller.Install(Container);
             AttackInstaller.Install(Container);
             SavecheckInstaller.Install(Container);

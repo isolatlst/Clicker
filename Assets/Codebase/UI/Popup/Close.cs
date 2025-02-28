@@ -7,7 +7,7 @@ namespace Codebase.UI.Popup
 {
     public class Close : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private GameObject _popup;
+        [SerializeField] private GameObject _window;
         [SerializeField] private Image _anticlicker;
         private const float DURATION = 0.15f;
 
@@ -15,10 +15,14 @@ namespace Codebase.UI.Popup
         {
             DOTween.Sequence()
                 .Append(_anticlicker.DOFade(0, DURATION))
-                .Append(_popup.transform.DOScale(Vector3.zero, DURATION))
+                .Append(_window.transform.DOScale(Vector3.zero, DURATION))
                 .SetEase(Ease.OutQuad)
                 .SetLoops(1, LoopType.Yoyo)
-                .OnComplete(() => _popup.SetActive(false));
+                .OnComplete(() =>
+                {
+                    _window.SetActive(false);
+                    _anticlicker.transform.gameObject.SetActive(false);
+                });
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Codebase.Enemy;
-using Codebase.Services;
+﻿using Codebase.Core.Enemy;
+using Codebase.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
 

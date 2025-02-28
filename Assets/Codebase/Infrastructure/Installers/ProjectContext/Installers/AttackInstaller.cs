@@ -1,4 +1,4 @@
-﻿using Codebase.Player;
+﻿using Codebase.Core.Player;
 using Zenject;
 
 namespace Codebase.Infrastructure.Installers.ProjectContext.Installers

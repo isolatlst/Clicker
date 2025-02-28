@@ -1,4 +1,4 @@
-﻿using Codebase.Wallet;
+﻿using Codebase.Core.Wallet;
 using Zenject;
 
 namespace Codebase.Infrastructure.Installers.ProjectContext.Installers

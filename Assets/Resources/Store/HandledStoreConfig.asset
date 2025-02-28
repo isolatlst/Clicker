@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4382b89a9c90468f9d27a0db7082188c, type: 3}
+  m_Name: HandledStoreConfig
+  m_EditorClassIdentifier: 
+  <DamagePrice>k__BackingField:
+  - <Level>k__BackingField: 0
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 10
+  - <Level>k__BackingField: 1
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 11
+  - <Level>k__BackingField: 2
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 15
+  - <Level>k__BackingField: 3
+    <Bonus>k__BackingField: 6
+    <Price>k__BackingField: 24
+  - <Level>k__BackingField: 4
+    <Bonus>k__BackingField: 7
+    <Price>k__BackingField: 39
+  - <Level>k__BackingField: 5
+    <Bonus>k__BackingField: 8
+    <Price>k__BackingField: 61
+  - <Level>k__BackingField: 6
+    <Bonus>k__BackingField: 9
+    <Price>k__BackingField: 90
+  - <Level>k__BackingField: 7
+    <Bonus>k__BackingField: 10
+    <Price>k__BackingField: 127
+  - <Level>k__BackingField: 8
+    <Bonus>k__BackingField: 11
+    <Price>k__BackingField: 173
+  - <Level>k__BackingField: 9
+    <Bonus>k__BackingField: 13
+    <Price>k__BackingField: 227
+  - <Level>k__BackingField: 10
+    <Bonus>k__BackingField: 15
+    <Price>k__BackingField: 291
+  - <Level>k__BackingField: 11
+    <Bonus>k__BackingField: 18
+    <Price>k__BackingField: 365
+  - <Level>k__BackingField: 12
+    <Bonus>k__BackingField: 21
+    <Price>k__BackingField: 450
+  - <Level>k__BackingField: 13
+    <Bonus>k__BackingField: 24
+    <Price>k__BackingField: 545
+  - <Level>k__BackingField: 14
+    <Bonus>k__BackingField: 29
+    <Price>k__BackingField: 652
+  - <Level>k__BackingField: 15
+    <Bonus>k__BackingField: 34
+    <Price>k__BackingField: 771
+  - <Level>k__BackingField: 16
+    <Bonus>k__BackingField: 40
+    <Price>k__BackingField: 901
+  - <Level>k__BackingField: 17
+    <Bonus>k__BackingField: 48
+    <Price>k__BackingField: 1044
+  - <Level>k__BackingField: 18
+    <Bonus>k__BackingField: 57
+    <Price>k__BackingField: 1199
+  - <Level>k__BackingField: 19
+    <Bonus>k__BackingField: 68
+    <Price>k__BackingField: 1368
+  <PeriodicDamagePrice>k__BackingField:
+  - <Level>k__BackingField: 0
+    <Bonus>k__BackingField: 3
+    <Price>k__BackingField: 25
+  - <Level>k__BackingField: 1
+    <Bonus>k__BackingField: 4
+    <Price>k__BackingField: 26
+  - <Level>k__BackingField: 2
+    <Bonus>k__BackingField: 4
+    <Price>k__BackingField: 33
+  - <Level>k__BackingField: 3
+    <Bonus>k__BackingField: 4
+    <Price>k__BackingField: 52
+  - <Level>k__BackingField: 4
+    <Bonus>k__BackingField: 4
+    <Price>k__BackingField: 89
+  - <Level>k__BackingField: 5
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 150
+  - <Level>k__BackingField: 6
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 241
+  - <Level>k__BackingField: 7
+    <Bonus>k__BackingField: 5
+    <Price>k__BackingField: 368
+  - <Level>k__BackingField: 8
+    <Bonus>k__BackingField: 6
+    <Price>k__BackingField: 537
+  - <Level>k__BackingField: 9
+    <Bonus>k__BackingField: 7
+    <Price>k__BackingField: 754
+  - <Level>k__BackingField: 10
+    <Bonus>k__BackingField: 8
+    <Price>k__BackingField: 1025
+  - <Level>k__BackingField: 11
+    <Bonus>k__BackingField: 9
+    <Price>k__BackingField: 1356
+  - <Level>k__BackingField: 12
+    <Bonus>k__BackingField: 10
+    <Price>k__BackingField: 1753
+  - <Level>k__BackingField: 13
+    <Bonus>k__BackingField: 11
+    <Price>k__BackingField: 2222
+  - <Level>k__BackingField: 14
+    <Bonus>k__BackingField: 13
+    <Price>k__BackingField: 2769
+  - <Level>k__BackingField: 15
+    <Bonus>k__BackingField: 15
+    <Price>k__BackingField: 3400
+  - <Level>k__BackingField: 16
+    <Bonus>k__BackingField: 18
+    <Price>k__BackingField: 4121
+  - <Level>k__BackingField: 17
+    <Bonus>k__BackingField: 21
+    <Price>k__BackingField: 4938
+  - <Level>k__BackingField: 18
+    <Bonus>k__BackingField: 25
+    <Price>k__BackingField: 5857
+  - <Level>k__BackingField: 19
+    <Bonus>k__BackingField: 29
+    <Price>k__BackingField: 6884

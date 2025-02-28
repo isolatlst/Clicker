@@ -1,4 +1,4 @@
-﻿using Codebase.Input;
+﻿using Codebase.Infrastructure.Services.Input;
 using UnityEngine;
 using Zenject;
 

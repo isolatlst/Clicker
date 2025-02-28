@@ -1,4 +1,4 @@
-﻿using Codebase.Game;
+﻿using Codebase.Boot;
 using Zenject;
 
 namespace Codebase.Infrastructure.Installers.ProjectContext.Installers
