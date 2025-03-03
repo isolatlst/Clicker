@@ -1,4 +1,4 @@
-﻿namespace Codebase.Infrastructure.Signals.SaveSystemSignals
+﻿namespace Codebase.Infrastructure.Signals.Enemy
 {
     public struct UpdateLevelSignal
     {

@@ -1,5 +1,6 @@
 ﻿using Codebase.Infrastructure;
 using Codebase.Infrastructure.Signals;
+using Codebase.Infrastructure.Signals.Enemy;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;

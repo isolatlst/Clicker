@@ -13,7 +13,6 @@ namespace Codebase.Infrastructure.Installers.ProjectContext
             WalletInstaller.Install(Container);
             AttackInstaller.Install(Container);
             SavecheckInstaller.Install(Container);
-            InputInstaller.Install(Container);
 
             BootInstaller.Install(Container);
         }

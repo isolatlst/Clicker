@@ -1,6 +1,6 @@
 ﻿using Codebase.Data.Enemy;
 
-namespace Codebase.Infrastructure.Signals
+namespace Codebase.Infrastructure.Signals.Enemy
 {
     public struct SpawnEnemySignal
     {

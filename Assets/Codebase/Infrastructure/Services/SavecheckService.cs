@@ -4,6 +4,7 @@ using Codebase.Data.Player;
 using Codebase.Data.SaveSystem;
 using Codebase.Data.Store;
 using Codebase.Infrastructure.Signals.Attack;
+using Codebase.Infrastructure.Signals.Enemy;
 using Codebase.Infrastructure.Signals.SaveSystemSignals;
 using Codebase.Infrastructure.Signals.Wallet;
 using Zenject;

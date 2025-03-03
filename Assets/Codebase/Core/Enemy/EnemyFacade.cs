@@ -1,6 +1,7 @@
 ﻿using Codebase.Core.Health;
 using Codebase.Infrastructure;
 using Codebase.Infrastructure.Signals;
+using Codebase.Infrastructure.Signals.Enemy;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

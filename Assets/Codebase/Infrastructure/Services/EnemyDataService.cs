@@ -1,4 +1,5 @@
 ﻿using Codebase.Data.Enemy;
+using Codebase.Infrastructure.Signals.Enemy;
 using Codebase.Infrastructure.Signals.SaveSystemSignals;
 using UnityEngine;
 using Zenject;

@@ -1,5 +1,6 @@
 ﻿using Codebase.Infrastructure;
 using Codebase.Infrastructure.Signals;
+using Codebase.Infrastructure.Signals.Enemy;
 using Codebase.Infrastructure.Signals.Wallet;
 using UnityEngine;
 

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Codebase.Infrastructure.Utils;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ namespace Codebase.Data.SaveSystem
             
             var json = File.ReadAllText(_savesPath);
             
-            if(string.IsNullOrEmpty(json))
+            if(json.EnsureNotFreaked())
                 return dataByDefault;
             
             return JsonConvert.DeserializeObject<T>(json);
