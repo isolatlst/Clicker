@@ -17,15 +17,15 @@ namespace Codebase.Infrastructure.Services
         public void Initialize()
         {
             _storeData = Resources.Load<StoreData>("Store/HandledStoreConfig");
-            SignalBus.Subscribe<UpdateStoreSignal>(LoadStore);
+            SignalBus.Subscribe<LoadStoreSignal>(LoadStore);
             SignalBus.Subscribe<SuccessfulBuySignal>(UpdateLevels);
         }
 
-        private void LoadStore(UpdateStoreSignal signal)
+        private void LoadStore(LoadStoreSignal signal)
         {
             _damageLevel = signal.DamageLevel;
             _periodicDamageLevel = signal.PeriodicDamageLevel;
-            SignalBus.Unsubscribe<UpdateStoreSignal>(LoadStore);
+            SignalBus.Unsubscribe<LoadStoreSignal>(LoadStore);
         }
 
         private void UpdateLevels(SuccessfulBuySignal signal)
@@ -48,7 +48,7 @@ namespace Codebase.Infrastructure.Services
             if (level >= priceList.Count - 1) 
                 level = 0;
 
-            SignalBus.Fire(new UpdateStoreSignal(_damageLevel, _periodicDamageLevel));
+            SignalBus.Fire(new LoadStoreSignal(_damageLevel, _periodicDamageLevel));
 
             return priceList[level];
         }

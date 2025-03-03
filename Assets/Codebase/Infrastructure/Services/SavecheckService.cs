@@ -19,10 +19,10 @@ namespace Codebase.Infrastructure.Services
             _saveRepository = saveRepository;
         }
 
-        public void Initialize()
+        public void InitializeData()
         {
             SignalBus.Subscribe<UpdateLevelSignal>(SaveLevel);
-            SignalBus.Subscribe<UpdateStoreSignal>(SaveStore);
+            SignalBus.Subscribe<LoadStoreSignal>(SaveStore);
             SignalBus.Subscribe<CoinsChangedSignal>(SaveWallet);
             SignalBus.Subscribe<UpgradeAttackStatsSignal>(SaveAttack);
 
@@ -45,7 +45,7 @@ namespace Codebase.Infrastructure.Services
             _saveRepository.Save(new LevelStats(signal.Index));
         }
 
-        private void SaveStore(UpdateStoreSignal signal)
+        private void SaveStore(LoadStoreSignal signal)
         {
             _saveRepository.Save(new StoreStats(signal.DamageLevel, signal.PeriodicDamageLevel));
         }
@@ -67,7 +67,7 @@ namespace Codebase.Infrastructure.Services
 
         private void LoadStoreStats()
         {
-            LoadAndFire(new StoreStats(), stats => new UpdateStoreSignal(stats.DamageLevel, stats.PeriodicDamageLevel));
+            LoadAndFire(new StoreStats(), stats => new LoadStoreSignal(stats.DamageLevel, stats.PeriodicDamageLevel));
         }
 
         private void LoadWalletStats()
@@ -78,6 +78,10 @@ namespace Codebase.Infrastructure.Services
         private void LoadAttackStats()
         {
             LoadAndFire(new AttackStats(), stats => new LoadAttackSignal(stats.Damage, stats.PeriodicDamage));
+        }
+
+        public void Initialize()
+        {
         }
 
         public void Dispose()

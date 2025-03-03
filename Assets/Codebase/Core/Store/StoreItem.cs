@@ -47,7 +47,7 @@ namespace Codebase.Core.Store
             _priceText.text = _price.ToString();
         }
 
-        public void TryBuy()
+        public void Buy()
         {
             SignalBus.Fire(new TryBuySignal(_type, _price, _bonus));
         }

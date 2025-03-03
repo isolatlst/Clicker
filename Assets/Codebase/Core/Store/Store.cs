@@ -22,10 +22,10 @@ namespace Codebase.Core.Store
 
         public void Initialize()
         {
-            SignalBus.Subscribe<TryBuySignal>(Buy);
+            SignalBus.Subscribe<TryBuySignal>(BuyUpgrade);
         }
 
-        private void Buy(TryBuySignal signal)
+        private void BuyUpgrade(TryBuySignal signal)
         {
             if (_walletModel.TrySpendCoins(signal.Price))
             {
@@ -39,7 +39,7 @@ namespace Codebase.Core.Store
 
         public void Dispose()
         {
-            SignalBus.Unsubscribe<TryBuySignal>(Buy);
+            SignalBus.Unsubscribe<TryBuySignal>(BuyUpgrade);
         }
     }
 }

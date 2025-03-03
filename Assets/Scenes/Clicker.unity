@@ -1191,7 +1191,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1127680555}
         m_TargetAssemblyTypeName: Codebase.Core.Store.StoreItem, Assembly-CSharp
-        m_MethodName: TryBuy
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1817,7 +1817,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1915038991}
         m_TargetAssemblyTypeName: Codebase.Core.Store.StoreItem, Assembly-CSharp
-        m_MethodName: TryBuy
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

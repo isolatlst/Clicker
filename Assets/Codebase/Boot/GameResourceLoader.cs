@@ -1,19 +1,47 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using Codebase.Infrastructure.Services;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Codebase.Boot
 {
     public class GameResourceLoader : MonoBehaviour
     {
-        //Запрос у save repository асинхронно загрузить статы
-        private void Start()
+        private SavecheckService _savecheckService;
+        
+        [Inject]
+        public void Construct(SavecheckService savecheckService)
         {
-            LoadScene();
+            _savecheckService = savecheckService;
         }
         
-        private void LoadScene()
+        private async void Start()
         {
-            SceneManager.LoadSceneAsync(1);
+            await LoadSceneAndLoadData(1);
+        }
+        
+        private async Task LoadSceneAndLoadData(int id)
+        {
+            await LoadSceneAsync(id);
+            
+            LoadData();
+        }
+
+        private Task LoadSceneAsync(int id)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            var asyncOperation = SceneManager.LoadSceneAsync(id);
+            asyncOperation.completed += _ => tcs.SetResult(true);
+
+            return tcs.Task;
+        }
+
+        private void LoadData()
+        {
+          _savecheckService.InitializeData();
         }
     }
 }
