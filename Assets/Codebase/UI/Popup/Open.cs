@@ -14,7 +14,7 @@ namespace Codebase.UI.Popup
 
         private void Awake()
         {
-            _startOrder = _anticlicker.GetComponent<Canvas>().sortingOrder;
+            _startOrder = _anticlicker.GetComponent<Canvas>().sortingOrder + 1;
             _popup.transform.localScale = Vector3.zero;
         }
 

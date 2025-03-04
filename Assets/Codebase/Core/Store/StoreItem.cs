@@ -1,6 +1,7 @@
 ﻿using Codebase.Data.Store;
 using Codebase.Infrastructure;
 using Codebase.Infrastructure.Services;
+using Codebase.Infrastructure.Signals.SaveSystemSignals;
 using Codebase.Infrastructure.Signals.Store;
 using TMPro;
 using UnityEngine;
@@ -26,8 +27,14 @@ namespace Codebase.Core.Store
 
         private void Awake()
         {
-            UpdateConfig();
+            SignalBus.Subscribe<LoadStoreSignal>(LoadConfig);
             SignalBus.Subscribe<SuccessfulBuySignal>(OnSuccessfulBuy);
+        }
+
+        private void LoadConfig(LoadStoreSignal signal)
+        {
+            UpdateConfig();
+            SignalBus.Unsubscribe<LoadStoreSignal>(LoadConfig);
         }
 
         private void OnSuccessfulBuy(SuccessfulBuySignal signal)
@@ -39,7 +46,7 @@ namespace Codebase.Core.Store
         private void UpdateConfig()
         {
             StoreItemConfig storeItemConfig = _storeDataService.GetStoreItemConfig(_type);
-            
+
             _price = storeItemConfig.Price;
             _bonus = storeItemConfig.Bonus;
             _bonusText.text = "+" + _bonus;

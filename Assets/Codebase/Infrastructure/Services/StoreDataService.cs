@@ -35,20 +35,23 @@ namespace Codebase.Infrastructure.Services
 
             if (signal.Type == BoostName.PeriodicDamage)
                 _periodicDamageLevel++;
+            
+            SignalBus.Fire(new UpdateLevelsSignal(_damageLevel, _periodicDamageLevel));
         }
-        
-        private ref int GetLevel(BoostName name) => ref name == BoostName.Damage ? ref _damageLevel : ref _periodicDamageLevel;
-        private List<StoreItemConfig> GetPriceList(BoostName name) => name == BoostName.Damage ? _storeData.DamagePrice : _storeData.PeriodicDamagePrice;
+
+        private ref int GetLevel(BoostName name) =>
+            ref name == BoostName.Damage ? ref _damageLevel : ref _periodicDamageLevel;
+
+        private List<StoreItemConfig> GetPriceList(BoostName name) =>
+            name == BoostName.Damage ? _storeData.DamagePrice : _storeData.PeriodicDamagePrice;
 
         public StoreItemConfig GetStoreItemConfig(BoostName name)
         {
             ref int level = ref GetLevel(name);
             var priceList = GetPriceList(name);
 
-            if (level >= priceList.Count - 1) 
+            if (level >= priceList.Count - 1)
                 level = 0;
-
-            SignalBus.Fire(new LoadStoreSignal(_damageLevel, _periodicDamageLevel));
 
             return priceList[level];
         }

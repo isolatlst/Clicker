@@ -29,8 +29,12 @@ namespace Codebase.Core.Store
         {
             if (_walletModel.TrySpendCoins(signal.Price))
             {
-                var newDamage = signal.Type == BoostName.Damage ? signal.Bonus : _attackModel.Damage;
-                var newPeriodicDamage = signal.Type == BoostName.PeriodicDamage ? signal.Bonus : _attackModel.PeriodicDamage;
+                var newDamage = signal.Type == BoostName.Damage
+                    ? signal.Bonus + _attackModel.Damage
+                    : _attackModel.Damage;
+                var newPeriodicDamage = signal.Type == BoostName.PeriodicDamage
+                    ? signal.Bonus + _attackModel.PeriodicDamage
+                    : _attackModel.PeriodicDamage;
 
                 SignalBus.Fire(new SuccessfulBuySignal(signal.Type));
                 SignalBus.Fire(new UpgradeAttackStatsSignal(newDamage, newPeriodicDamage));

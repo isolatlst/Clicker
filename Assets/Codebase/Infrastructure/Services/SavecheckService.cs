@@ -10,6 +10,7 @@ using Codebase.Infrastructure.Signals.Attack;
 using Codebase.Infrastructure.Signals.Enemy;
 using Codebase.Infrastructure.Signals.SaveSystemSignals;
 using Codebase.Infrastructure.Signals.Settings;
+using Codebase.Infrastructure.Signals.Store;
 using Codebase.Infrastructure.Signals.Wallet;
 using Zenject;
 
@@ -27,7 +28,7 @@ namespace Codebase.Infrastructure.Services
         public void Initialize()
         {
             SignalBus.Subscribe<UpdateLevelSignal>(SaveLevel);
-            SignalBus.Subscribe<LoadStoreSignal>(SaveStore);
+            SignalBus.Subscribe<UpdateLevelsSignal>(SaveStore);
             SignalBus.Subscribe<CoinsChangedSignal>(SaveWallet);
             SignalBus.Subscribe<UpgradeAttackStatsSignal>(SaveAttack);
             SignalBus.Subscribe<UpdateFxSettingsSignal>(SaveFxSettings);
@@ -55,7 +56,7 @@ namespace Codebase.Infrastructure.Services
             _saveRepository.Save(new LevelStats(signal.Index));
         }
 
-        private void SaveStore(LoadStoreSignal signal)
+        private void SaveStore(UpdateLevelsSignal signal)
         {
             _saveRepository.Save(new StoreStats(signal.DamageLevel, signal.PeriodicDamageLevel));
         }

@@ -26,9 +26,9 @@ namespace Codebase.Core.Player
         private void UpdateAttackStats(UpgradeAttackStatsSignal signal)
         {
             if (signal.Damage > 0)
-                Damage += signal.Damage;
+                Damage = signal.Damage;
             if (signal.PeriodicDamage > 0)
-                PeriodicDamage += signal.PeriodicDamage;
+                PeriodicDamage = signal.PeriodicDamage;
         }
 
         public void Dispose()
