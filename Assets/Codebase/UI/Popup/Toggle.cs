@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Codebase.FX;
+using Codebase.Infrastructure;
+using Codebase.Infrastructure.Signals.SaveSystemSignals;
+using Codebase.Infrastructure.Signals.Settings;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,30 +11,29 @@ namespace Codebase.UI.Popup
 {
     public class Toggle : MonoBehaviour, IPointerClickHandler
     {
-        public event Action<bool> Toggled;
+        [SerializeField] private FxTypes _type;
         [SerializeField] private RectTransform _on;
         [SerializeField] private RectTransform _off;
         [SerializeField] private float _duration = 0.2f;
         private bool _isOn;
         private Sequence _sequence;
 
-        public void Synchronize(bool isOn) // для сейвов
+        private void Awake()
         {
-            _isOn = isOn;
+            SignalBus.Subscribe<LoadFxSettingsSignal>(Synchronize);
+        }
+
+        private void Synchronize(LoadFxSettingsSignal signal)
+        {
+            _isOn = signal.FxStatuses[_type];
             PlayAnim();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
             _isOn = !_isOn;
-            Toggled?.Invoke(_isOn);
-            
+            SignalBus.Fire(new SwapFxStatusSignal(_type, _isOn));
             PlayAnim();
-        }
-
-        private void Awake()
-        {
-            Synchronize(true);
         }
 
         private void PlayAnim()
@@ -44,8 +46,8 @@ namespace Codebase.UI.Popup
                     .Join(_off.DOPivotX(1f, _duration))
                     .Join(_off.DOAnchorMin(new Vector2(1f, 0f), _duration))
                     .Join(_off.DOAnchorMax(new Vector2(1f, 1f), _duration));
-                _sequence   
-                    .Join(_on.GetComponent<Image>().DOFade(1f, 2*_duration))
+                _sequence
+                    .Join(_on.GetComponent<Image>().DOFade(1f, 2 * _duration))
                     .Join(_on.DOPivotX(1, _duration))
                     .Join(_on.DOAnchorMin(new Vector2(1f, 0f), _duration))
                     .Join(_on.DOAnchorMax(new Vector2(1f, 1f), _duration));
@@ -57,8 +59,8 @@ namespace Codebase.UI.Popup
                     .Join(_off.DOPivotX(0, _duration))
                     .Join(_off.DOAnchorMin(new Vector2(0f, 0f), _duration))
                     .Join(_off.DOAnchorMax(new Vector2(0f, 1f), _duration));
-                _sequence  
-                    .Join(_on.GetComponent<Image>().DOFade(0f, 2*_duration))
+                _sequence
+                    .Join(_on.GetComponent<Image>().DOFade(0f, 2 * _duration))
                     .Join(_on.DOPivotX(0f, _duration))
                     .Join(_on.DOAnchorMin(new Vector2(0f, 0f), _duration))
                     .Join(_on.DOAnchorMax(new Vector2(0f, 1f), _duration));
