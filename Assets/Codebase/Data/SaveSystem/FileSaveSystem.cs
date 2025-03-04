@@ -12,7 +12,7 @@ namespace Codebase.Data.SaveSystem
         public FileSaveSystem()
         {
             var directory = Application.persistentDataPath + "/Saves";
-            if (!Directory.Exists(directory)) 
+            if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
             _savesPath = directory + "/Save.save";
         }
@@ -20,9 +20,11 @@ namespace Codebase.Data.SaveSystem
         public void Save<T>(T dataToSave)
         {
             var json = JsonConvert.SerializeObject(dataToSave);
+            var encryptedJson = AesUtility.Encrypt(json);
+
             using (var writer = new StreamWriter(_savesPath))
             {
-                writer.WriteLine(json);
+                writer.WriteLine(encryptedJson);
             }
         }
 
@@ -30,12 +32,13 @@ namespace Codebase.Data.SaveSystem
         {
             if (!File.Exists(_savesPath))
                 return dataByDefault;
-            
-            var json = File.ReadAllText(_savesPath);
-            
-            if(json.EnsureNotFreaked())
+
+            var encryptedJson = File.ReadAllText(_savesPath);
+            var json = AesUtility.Decrypt(encryptedJson);
+
+            if (json.EnsureNotFreaked())
                 return dataByDefault;
-            
+
             return JsonConvert.DeserializeObject<T>(json);
         }
     }

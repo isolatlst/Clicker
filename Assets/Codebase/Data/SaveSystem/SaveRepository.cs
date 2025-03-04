@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json.Linq;
-using UnityEngine;
 using Zenject;
 
 namespace Codebase.Data.SaveSystem
@@ -11,12 +9,12 @@ namespace Codebase.Data.SaveSystem
     {
         private Dictionary<string, object> _dataForSave = new();
         private FileSaveSystem _saveSystem;
-        
+
         public SaveRepository(FileSaveSystem saveSystem)
         {
             _saveSystem = saveSystem;
         }
-        
+
         private string GetKey<T>() => typeof(T).Name;
 
         public void Initialize()
@@ -39,24 +37,13 @@ namespace Codebase.Data.SaveSystem
                 if (savedData is JObject jObject)
                     return jObject.ToObject<T>();
             }
-            
+
             return dataByDefault;
         }
 
         public void Dispose()
         {
             _saveSystem.Save(_dataForSave);
-            Print();
-        }
-
-        public void Print()
-        {
-            var str = new StringBuilder();
-            foreach (var stat in _dataForSave)
-            {
-                str.Append(stat.Key + " : " + stat.Value + "\n");
-            }
-            Debug.Log(str.ToString());
         }
     }
 }
