@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 using Zenject;
 
 namespace Codebase.Data.SaveSystem
@@ -20,6 +21,8 @@ namespace Codebase.Data.SaveSystem
         public void Initialize()
         {
             _dataForSave = _saveSystem.Load(_dataForSave);
+            Application.quitting += Dispose;
+            Application.focusChanged += OnApplicationPause;
         }
 
         public void Save<T>(T dataForSave)
@@ -44,6 +47,14 @@ namespace Codebase.Data.SaveSystem
         public void Dispose()
         {
             _saveSystem.Save(_dataForSave);
+            Application.quitting -= Dispose;
+            Application.focusChanged -= OnApplicationPause;
+        }
+
+        private void OnApplicationPause(bool isPaused)
+        {
+            if (!isPaused)
+                _saveSystem.Save(_dataForSave);
         }
     }
 }
