@@ -10,50 +10,44 @@ namespace Codebase.Infrastructure.Services
 {
     public class StoreDataService : IInitializable
     {
-        private StoreData _storeData;
-        private int _damageLevel;
-        private int _periodicDamageLevel;
+        private Dictionary<BoostType, int> _boostLevels = new();
+        private Dictionary<BoostType, List<StoreItemConfig>> _boostStats = new();
 
         public void Initialize()
         {
-            _storeData = Resources.Load<StoreData>("Store/HandledStoreConfig");
+            var data = Resources.Load<StoreData>("Store/HandledStoreConfig");
+            _boostStats.Add(BoostType.Damage, data.DamagePrice);
+            _boostStats.Add(BoostType.PeriodicDamage, data.PeriodicDamagePrice);
+            
             SignalBus.Subscribe<LoadStoreSignal>(LoadStore);
             SignalBus.Subscribe<SuccessfulBuySignal>(UpdateLevels);
         }
 
         private void LoadStore(LoadStoreSignal signal)
         {
-            _damageLevel = signal.DamageLevel;
-            _periodicDamageLevel = signal.PeriodicDamageLevel;
+            _boostLevels.Add(BoostType.Damage, signal.DamageLevel);
+            _boostLevels.Add(BoostType.PeriodicDamage, signal.PeriodicDamageLevel);
+
             SignalBus.Unsubscribe<LoadStoreSignal>(LoadStore);
         }
 
         private void UpdateLevels(SuccessfulBuySignal signal)
         {
-            if (signal.Type == BoostName.Damage)
-                _damageLevel++;
+            _boostLevels[signal.Type]++;
 
-            if (signal.Type == BoostName.PeriodicDamage)
-                _periodicDamageLevel++;
-            
-            SignalBus.Fire(new UpdateLevelsSignal(_damageLevel, _periodicDamageLevel));
+            SignalBus.Fire(new UpdateLevelsSignal(
+                _boostLevels[BoostType.Damage],
+                _boostLevels[BoostType.PeriodicDamage]));
         }
 
-        private ref int GetLevel(BoostName name) =>
-            ref name == BoostName.Damage ? ref _damageLevel : ref _periodicDamageLevel;
-
-        private List<StoreItemConfig> GetPriceList(BoostName name) =>
-            name == BoostName.Damage ? _storeData.DamagePrice : _storeData.PeriodicDamagePrice;
-
-        public StoreItemConfig GetStoreItemConfig(BoostName name)
+        public StoreItemConfig GetStoreItemConfig(BoostType type)
         {
-            ref int level = ref GetLevel(name);
-            var priceList = GetPriceList(name);
+            var configs = _boostStats[type];
 
-            if (level >= priceList.Count - 1)
-                level = 0;
+            if (_boostLevels[type] >= configs.Count - 1)
+                _boostLevels[type] = 0;
 
-            return priceList[level];
+            return configs[_boostLevels[type]];
         }
     }
 }

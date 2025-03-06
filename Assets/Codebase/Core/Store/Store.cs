@@ -29,10 +29,10 @@ namespace Codebase.Core.Store
         {
             if (_walletModel.TrySpendCoins(signal.Price))
             {
-                var newDamage = signal.Type == BoostName.Damage
+                var newDamage = signal.Type == BoostType.Damage
                     ? signal.Bonus + _attackModel.Damage
                     : _attackModel.Damage;
-                var newPeriodicDamage = signal.Type == BoostName.PeriodicDamage
+                var newPeriodicDamage = signal.Type == BoostType.PeriodicDamage
                     ? signal.Bonus + _attackModel.PeriodicDamage
                     : _attackModel.PeriodicDamage;
 

@@ -25,7 +25,7 @@ namespace Codebase.Infrastructure.Services
 
         public EnemyConfig GetEnemyConfig()
         {
-            if (_index == _enemiesData.EnemiesConfigs.Count - 1)
+            if (_index >= _enemiesData.EnemiesConfigs.Count - 1)
                 _index = 0;
 
             SignalBus.Fire(new UpdateLevelSignal(_index++));

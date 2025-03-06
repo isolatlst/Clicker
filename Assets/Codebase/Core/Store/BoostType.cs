@@ -1,6 +1,6 @@
 ﻿namespace Codebase.Core.Store
 {
-    public enum BoostName
+    public enum BoostType
     {
         Damage,
         PeriodicDamage

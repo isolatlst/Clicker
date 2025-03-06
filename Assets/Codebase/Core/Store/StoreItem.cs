@@ -11,7 +11,7 @@ namespace Codebase.Core.Store
 {
     public class StoreItem : MonoBehaviour
     {
-        [SerializeField] private BoostName _type;
+        [SerializeField] private BoostType _type;
         [SerializeField] private TMP_Text _bonusText;
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private TMP_Text _priceText;
