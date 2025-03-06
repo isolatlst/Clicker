@@ -27,8 +27,8 @@ namespace Codebase.Infrastructure.Services
 
         public void Initialize()
         {
-            SignalBus.Subscribe<UpdateLevelSignal>(SaveLevel);
-            SignalBus.Subscribe<UpdateLevelsSignal>(SaveStore);
+            SignalBus.Subscribe<UpdateEnemyLevelSignal>(SaveLevel);
+            SignalBus.Subscribe<UpdateBoostLevelsSignal>(SaveStore);
             SignalBus.Subscribe<CoinsChangedSignal>(SaveWallet);
             SignalBus.Subscribe<UpgradeAttackStatsSignal>(SaveAttack);
             SignalBus.Subscribe<UpdateFxSettingsSignal>(SaveFxSettings);
@@ -51,12 +51,12 @@ namespace Codebase.Infrastructure.Services
             SignalBus.Fire(createSignal(stats));
         }
 
-        private void SaveLevel(UpdateLevelSignal signal)
+        private void SaveLevel(UpdateEnemyLevelSignal signal)
         {
             _saveRepository.Save(new LevelStats(signal.Index));
         }
 
-        private void SaveStore(UpdateLevelsSignal signal)
+        private void SaveStore(UpdateBoostLevelsSignal signal)
         {
             _saveRepository.Save(new StoreStats(signal.DamageLevel, signal.PeriodicDamageLevel));
         }

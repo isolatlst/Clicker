@@ -35,7 +35,7 @@ namespace Codebase.Infrastructure.Services
         {
             _boostLevels[signal.Type]++;
 
-            SignalBus.Fire(new UpdateLevelsSignal(
+            SignalBus.Fire(new UpdateBoostLevelsSignal(
                 _boostLevels[BoostType.Damage],
                 _boostLevels[BoostType.PeriodicDamage]));
         }

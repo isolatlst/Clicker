@@ -1,11 +1,11 @@
 ﻿namespace Codebase.Infrastructure.Signals.Store
 {
-    public struct UpdateLevelsSignal
+    public struct UpdateBoostLevelsSignal
     {
         public readonly int DamageLevel;
         public readonly int PeriodicDamageLevel;
 
-        public UpdateLevelsSignal(int damageLevel, int periodicDamageLevel)
+        public UpdateBoostLevelsSignal(int damageLevel, int periodicDamageLevel)
         {
             DamageLevel = damageLevel;
             PeriodicDamageLevel = periodicDamageLevel;

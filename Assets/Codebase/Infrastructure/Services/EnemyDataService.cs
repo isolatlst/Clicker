@@ -28,7 +28,7 @@ namespace Codebase.Infrastructure.Services
             if (_index >= _enemiesData.EnemiesConfigs.Count - 1)
                 _index = 0;
 
-            SignalBus.Fire(new UpdateLevelSignal(_index++));
+            SignalBus.Fire(new UpdateEnemyLevelSignal(_index++));
 
             return _enemiesData.EnemiesConfigs[_index];
         }

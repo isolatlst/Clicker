@@ -7,7 +7,7 @@ namespace Codebase.Infrastructure.Services.Analytics
     {
         public void StartReport()
         {
-            SignalBus.Subscribe<UpdateLevelsSignal>(s =>
+            SignalBus.Subscribe<UpdateBoostLevelsSignal>(s =>
             {
                 Amplitude.Instance.logEvent("UpgradeAttacks", new Dictionary<string, object>
                 {

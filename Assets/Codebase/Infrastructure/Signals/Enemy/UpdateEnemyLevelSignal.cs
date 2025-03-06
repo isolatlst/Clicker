@@ -1,10 +1,10 @@
 ﻿namespace Codebase.Infrastructure.Signals.Enemy
 {
-    public struct UpdateLevelSignal
+    public struct UpdateEnemyLevelSignal
     {
         public readonly int Index;
 
-        public UpdateLevelSignal(int index)
+        public UpdateEnemyLevelSignal(int index)
         {
             Index = index;
         }

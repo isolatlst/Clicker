@@ -7,7 +7,7 @@ namespace Codebase.Infrastructure.Services.Analytics
     {
         public void StartReport()
         {
-            SignalBus.Subscribe<UpdateLevelSignal>(s =>
+            SignalBus.Subscribe<UpdateEnemyLevelSignal>(s =>
             {
                 Amplitude.Instance.logEvent("Completed level", new Dictionary<string, object>
                 {
