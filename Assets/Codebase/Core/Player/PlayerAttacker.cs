@@ -8,6 +8,7 @@ namespace Codebase.Core.Player
 {
     public class PlayerAttacker : MonoBehaviour
     {
+        [SerializeField] private PlayerAttackAnimation _animation;
         private IInputHandler _inputHandler;
         private PlayerAttackModel _attackStats;
         private EnemyFacade _enemy;
@@ -29,6 +30,7 @@ namespace Codebase.Core.Player
         private void Attack()
         {
             _enemy.Health.TakeDamage(_attackStats.Damage);
+            _animation.Play(_attackStats.Damage);
         }
 
         private IEnumerator PeriodicAttack()

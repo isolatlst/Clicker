@@ -1,6 +1,5 @@
 ﻿using Codebase.Core.Health;
 using Codebase.Infrastructure;
-using Codebase.Infrastructure.Signals;
 using Codebase.Infrastructure.Signals.Enemy;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +17,7 @@ namespace Codebase.Core.Enemy
         public void Initialize()
         {
             SignalBus.Subscribe<SpawnEnemySignal>(SetupConfig);
-            
+
             _image = GetComponent<Image>();
             _reward = GetComponent<EnemyReward>();
             Health = new Health.Health();
